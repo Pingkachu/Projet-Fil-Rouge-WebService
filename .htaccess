@@ -1,0 +1,7 @@
+RewriteEngine on
+
+# http://localhost/events
+RewriteRule ^annonces$ ./annonces.php [L]
+
+# http://localhost/event/4
+RewriteRule ^annonce/([0-9]+)$ ./annonce.php?id=$1 [L]
