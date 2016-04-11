@@ -11,7 +11,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $nb = $end - $start;
         }else{
 			
-			//Parametre par default si nous n'avons pas d'intervalle donnÈ par l'utilisateur
+			//Parametre par default si nous n'avons pas d'intervalle donn√© par l'utilisateur
 			$start = 1 ;
 			$end = 100 ;
 			$nb=99;
@@ -19,7 +19,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             break;
         }
 
-        $stmt = $pdo->prepare ('SELECT marque, modele, avatar, prix, etat, telephone, commentaire, id_annonce, date_annonce, id_membre FROM annonces ORDER BY id_annonce ASC LIMIT :start, :nb');
+        $stmt = $pdo->prepare ('SELECT * FROM annonces ORDER BY id_annonce ASC LIMIT :start, :nb');
         $stmt->bindValue(':start', $start, PDO::PARAM_INT);
         $stmt->bindValue(':nb', $nb , PDO::PARAM_INT);
         $stmt->execute();
@@ -85,7 +85,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }else{
 
             header('HTTP/1.1 400');
-            echo json_encode(array('status' => 'error', 'message' => 'manque d\'ÈlÈments'));
+            echo json_encode(array('status' => 'error', 'message' => 'manque d\'√©l√©ments'));
 
             break;
 
