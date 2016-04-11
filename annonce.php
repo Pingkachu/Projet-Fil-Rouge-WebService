@@ -1,31 +1,33 @@
 <?php
 require 'pdo.php';
 
-// Parameter id required
-if(isset($_GET['id_annonce']) || isset($_DELETE['id_annonce']) || isset($_PUT['id_annonce']) ){
-    $id = intval($_GET['id_annonce']);
-}else{
-    header('HTTP/1.1 400');
-    echo json_encode(array('status' => 'error', "header" => "400", 'message' => 'Bad request'));
-    return;
-}
 
-// Test if ressource exists
-$stmt = $pdo->prepare('SELECT * FROM annonces WHERE id_annonce = :id_annonce');
-$stmt->bindValue(':id_annonce', $id, PDO::PARAM_INT);
-$stmt->execute();
-$annonce = $stmt->fetch();
-$stmt->closeCursor();
-
-if(empty($annonce->id_annonce)){
-    header('HTTP/1.1 204');
-    echo json_encode(array('status' => 'error', "header" => "204", 'message' => 'ID inexistante en base'));
-    return;
-}
 
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
+    	
+	// Parameter id required
+	if(isset($_GET['id_annonce'])){
+	    $id = intval($_GET['id_annonce']);
+	}else{
+	    header('HTTP/1.1 400');
+	    echo json_encode(array('status' => 'error', "header" => "400", 'message' => 'Bad request'));
+	    return;
+	}
+	
+	// Test if ressource exists
+	$stmt = $pdo->prepare('SELECT * FROM annonces WHERE id_annonce = :id_annonce');
+	$stmt->bindValue(':id_annonce', $id, PDO::PARAM_INT);
+	$stmt->execute();
+	$annonce = $stmt->fetch();
+	$stmt->closeCursor();
+	
+	if(empty($annonce->id_annonce)){
+	    header('HTTP/1.1 204');
+	    echo json_encode(array('status' => 'error', "header" => "204", 'message' => 'ID inexistante en base'));
+	    return;
+	}
         // cast
         $annonce->id_annonce = intval($annonce->id_annonce);
         header('HTTP/1.1 200');
