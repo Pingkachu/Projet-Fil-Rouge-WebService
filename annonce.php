@@ -6,7 +6,7 @@ if(isset($_GET['id_annonce'])){
     $id = intval($_GET['id_annonce']);
 }else{
     header('HTTP/1.1 400');
-    echo json_encode(array('status' => 'error', 'message' => 'Bad request'));
+    echo json_encode(array('status' => 'error', "header" => "400", 'message' => 'Bad request'));
     return;
 }
 
@@ -19,7 +19,7 @@ $stmt->closeCursor();
 
 if(empty($annonce->id_annonce)){
     header('HTTP/1.1 204');
-    echo json_encode(array('status' => 'error', 'message' => 'ID inexistante en base'));
+    echo json_encode(array('status' => 'error', "header" => "204", 'message' => 'ID inexistante en base'));
     return;
 }
 
@@ -29,7 +29,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // cast
         $annonce->id_annonce = intval($annonce->id_annonce);
         header('HTTP/1.1 200');
-        echo json_encode(array('annonce' => $annonce));
+        echo json_encode(array('annonce' => $annonce, "header" => "200"));
         break;
 
 	case 'PUT':
@@ -50,12 +50,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
 		if ( $nb == 1 )
 		{
 			header('HTTP/1.1 200 OK');
-			echo json_encode(array('status' => 'OK', 'request' => 'success'));
+			echo json_encode(array('status' => 'OK', "header" => "200", 'request' => 'success'));
 
 		}else {
 
 			header('HTTP/1.1 404');
-			echo json_encode(array('status' => 'error', 'request' => 'failed'));
+			echo json_encode(array('status' => 'error', "header" => "404", 'request' => 'failed'));
 
 		}
             
@@ -75,12 +75,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
 			
           header('HTTP/1.1 200');
 		  
-          echo json_encode(array('status' => 'OK', 'message' => 'Annonce supprimé'));
+          echo json_encode(array('status' => 'OK', "header" => "200", 'message' => 'Annonce supprimÃ©'));
 		  
         }
         else{
                 header('HTTP/1.1 404');
-                echo json_encode(array('status' => 'error', 'request' => 'failed'));
+                echo json_encode(array('status' => 'error', "header" => "404", 'request' => 'failed'));
         }
         break;
 }
