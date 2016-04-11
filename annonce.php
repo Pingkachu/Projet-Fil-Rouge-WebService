@@ -2,7 +2,7 @@
 require 'pdo.php';
 
 // Parameter id required
-if(isset($_GET['id_annonce'])){
+if(isset($_GET['id_annonce']) || isset($_DELETE['id_annonce']) || isset($_PUT['id_annonce']) ){
     $id = intval($_GET['id_annonce']);
 }else{
     header('HTTP/1.1 400');
