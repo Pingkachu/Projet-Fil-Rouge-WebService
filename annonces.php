@@ -39,7 +39,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
 			
 			header( 'HTTP/1.1 400 Erreur' );
 			echo json_encode( array( 
-				"Erreur" => "Il n'y a pas d'article"
+				"Erreur" => "Il n'y a pas d'article",
+				"header" => "400"
 			));
 			
 		}
@@ -69,12 +70,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
             if ( $nb == 1 )
             {
                 header('HTTP/1.1 200 OK');
-                echo json_encode(array('status' => 'OK', 'request' => 'success'));
+                echo json_encode(array('status' => 'OK', "header" => "200", 'request' => 'success'));
 
             }else {
 
                 header('HTTP/1.1 404');
-                echo json_encode(array('status' => 'error', 'request' => 'failed'));
+                echo json_encode(array('status' => 'error', "header" => "404", 'request' => 'failed'));
 
             }
             
@@ -85,7 +86,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }else{
 
             header('HTTP/1.1 400');
-            echo json_encode(array('status' => 'error', 'message' => 'manque d\'éléments'));
+            echo json_encode(array('status' => 'error', "header" => "400", 'message' => 'manque d\'éléments'));
 
             break;
 
